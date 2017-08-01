@@ -7,11 +7,13 @@
   <body>
     <h1>Welcome to Task-Master-Er</h1>
     <div class="task">
-    <h3>Your task:</h3>
-    <p>Task Name: </p>
-    <p>Time Tasked: </p>
-    <button>Start Task!</button>
-    <button>Stop Task!</button>
-    </div>
+      <h3>Your task:</h3>
+      <p>Task Name: </p>
+      <p>Time Tasked: </p>
+      <form action="/task-masterer" method="POST">
+        <input type="submit" name="startTsk" value="Start task!">
+        <input type="submit" name="stopTsk" value="Stop task!">
+      </form>
+      </div>
   </body>
 </html>
