@@ -12,6 +12,9 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "hbs": "^4.0.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.9",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.11.5"
   }
 }

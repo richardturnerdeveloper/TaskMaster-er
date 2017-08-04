@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Task-Master-er</title>
-  </head>
-  <body>
+{{> header}}
     <h1>Welcome to Task-Master-Er</h1>
-    <div class="task">
-      <h3>Your task:</h3>
-      <p>Task Name: </p>
-      <p>Time Tasked: </p>
-      <form action="/task-masterer" method="POST">
-        <input type="submit" name="startTsk" value="Start task!">
-        <input type="submit" name="stopTsk" value="Stop task!">
-      </form>
-      </div>
+    <div class="task-list">
+      <ul>
+        {{#each tasks}}
+        <li>{{title}}</li><a href="/task-masterer/{{_id}}">TASK IT</a>
+        {{/each}}
+      </ul>
+    </div>
   </body>
 </html>
