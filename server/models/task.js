@@ -23,7 +23,16 @@ var Task = mongoose.model('Task', {
     type: Number,
     default: 0,
     required: true
+  }, inProgress: {
+    type: Boolean,
+    default: false,
+    required: true
+  }, completed: {
+    type: Boolean,
+    default: false,
+    required: true
   }
+
 });
 
 module.exports = {Task};

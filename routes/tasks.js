@@ -60,7 +60,7 @@ router.put("/:id", (req, res) => {
   }
   // IF START BUTTON WAS CLICKED
   if (req.body.startTsk){
-    Task.findByIdAndUpdate(id, {$set: {startTime: conv.taskCount()}}).then((task) => {
+    Task.findByIdAndUpdate(id, {$set: {startTime: conv.taskCount(), inProgress:true}}).then((task) => {
       res.redirect('/tasks/' + id);
     }).catch((e) => {
       res.send(e);
@@ -80,7 +80,7 @@ router.put("/:id", (req, res) => {
     }).then((data) => {
       // USE DATA TO UPDATE TOTAL TIME
       var newTime = data.time + data.difference;
-      Task.findByIdAndUpdate(id, {$set: {time: newTime}}).then((task) => {
+      Task.findByIdAndUpdate(id, {$set: {time: newTime, inProgress:false}}).then((task) => {
         res.redirect('/tasks/' + id);
       }).catch((e) => {
         res.redirect('lost');
