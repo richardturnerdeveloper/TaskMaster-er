@@ -1,6 +1,7 @@
 {{> header}}
     <h1>{{task.title}}</h1>
     <p>TIME TASKED: <em>{{viewHours task.time}} HOURS</em></p>
+    <p>GOAL: <em>{{viewHours task.goalTime}} HOURS</em></p>
     <form action="{{task._id}}?_method=PUT" method="POST">
       <input type="submit" name="startTsk" value="START">
       <input type="submit" name="stopTsk" value="STOP">
@@ -8,6 +9,6 @@
     <form action="{{task._id}}?_method=DELETE" method="POST">
       <input type="submit" name="" value="DELETE">
     </form>
-    <p><a href="/task-masterer">Click here to return to the task-masterer page.</a></p>
+    <p><a href="/tasks">Click here to return to the task-masterer page.</a></p>
   </body>
 </html>

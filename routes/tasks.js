@@ -18,8 +18,15 @@ router.get("/", (req, res) => {
 });
 //ADD A NEW TASK
 router.post("/", (req, res) => {
+  if (req.body.goalNum){
+    var target = req.body.goalNum;
+    target = target * 60;
+    target = target * 60;
+    target = target * 1000;
+  }
   var newTask = new Task({
-    title: req.body.titleTsk
+    title: req.body.titleTsk,
+    goalTime: target
   });
   newTask.save().then((task) => {
     res.redirect("/tasks");

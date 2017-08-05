@@ -14,8 +14,12 @@ hbs.registerHelper('viewHours', function(difference){
   difference = difference * 0.001; //convert milliseconds to seconds
   difference = difference * 0.0166667; //convert seconds to minutes
   difference = difference * 0.0166667; //convert minutes to hours
+  if (difference > 10000){
+    difference = Math.floor(difference);
+  }
   return difference.toFixed(3);
 });
+
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');

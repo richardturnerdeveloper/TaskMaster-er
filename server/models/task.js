@@ -11,6 +11,10 @@ var Task = mongoose.model('Task', {
     type: Number,
     default: 0,
     required: true
+  }, goalTime: {
+    type: Number,
+    required: true,
+    default: 36000000000
   }, startTime: {
     type: Number,
     default: 0,
