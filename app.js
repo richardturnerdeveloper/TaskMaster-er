@@ -19,7 +19,11 @@ hbs.registerHelper('viewHours', function(difference){
   }
   return difference.toFixed(3);
 });
-
+hbs.registerHelper('goalPercent', function(time, goalTime) {
+  var percentage = time / goalTime;
+  percentage = percentage * 100;
+  return percentage.toFixed(0);
+});
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');

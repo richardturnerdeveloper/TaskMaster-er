@@ -2,6 +2,7 @@
     <h1>{{task.title}}</h1>
     <p>TIME TASKED: <em>{{viewHours task.time}} HOURS</em></p>
     <p>GOAL: <em>{{viewHours task.goalTime}} HOURS</em></p>
+    <p>PERCENTAGE COMPLETED: {{goalPercent task.time task.goalTime}}%</p>
     <form action="{{task._id}}?_method=PUT" method="POST">
       <input type="submit" name="startTsk" value="START">
       <input type="submit" name="stopTsk" value="STOP">
