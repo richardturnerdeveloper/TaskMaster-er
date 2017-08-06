@@ -58,6 +58,18 @@ router.put("/:id", (req, res) => {
   if (!ObjectID.isValid(id)){
     return res.status(400).send('Object ID not valid!');
   }
+  //IF note ADDED
+  if (req.body.noteTitle && req.body.noteBody){
+    var newNote = {
+      title: req.body.noteTitle,
+      body: req.body.noteBody
+    }
+    Task.findByIdAndUpdate(id, {$push: {notes: newNote}}).then((note) => {
+      res.redirect('/tasks/' + id);
+    }).catch((e) => {
+      res.send(e);
+    });
+  }
   //IF TITLE IS EDITED
   if (req.body.editTitleTsk){
     Task.findByIdAndUpdate(id, {$set: {title: req.body.editTitleTsk}}).then((task) => {
