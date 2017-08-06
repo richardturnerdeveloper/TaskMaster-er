@@ -1,19 +1,53 @@
-{{> header}}
-    <h1>BIG TASKS:</h1>
-    <div class="task-list">
-      <ul id="taskUl">
-        {{#each tasks}}
-        <li>
-          <h2>{{title}} - <a href="/tasks/{{_id}}">
-            <button class="btn btn-success"><i class="fa fa-pencil"></i></button>
-          </a></h2>
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>{{task.title}}</title>
+      <script
+      src="http://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://use.fontawesome.com/f971beed2e.js"></script>
+      <link rel="stylesheet" href="/css/styles.css">
 
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{title}}</div>
+    </head>
+    <body>
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+              Add Task
+            </button>
           </div>
-        </li>
+        </div>
+      </nav>
 
-        {{/each}}
-      </ul>
-    </div>
+    <div class="container">
+  
+          <h1>BIG TASKS:</h1>
+          <div class="task-list">
+            <ul id="taskUl">
+              {{#each tasks}}
+              <li>
+                <h2>{{title}} - <a href="/tasks/{{_id}}">
+                  <button class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                </a></h2>
+
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{goalPercent time goalTime}}%" aria-valuenow="{{goalPercent time goalTime}}" aria-valuemin="0" aria-valuemax="100"><span>{{goalPercent time goalTime}}%</span></div>
+                </div>
+              </li>
+
+              {{/each}}
+            </ul>
+        </div>
+      </div>
+
+
 {{> footer}}

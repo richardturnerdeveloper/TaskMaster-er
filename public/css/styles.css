@@ -1,7 +1,36 @@
+
+
 #taskUl {
   list-style: none;
 }
+
+/* PROGRESS BAR STYLES  */
 .progress {
   width: 50%;
-  
+  text-align: center;
+  position: relative;
 }
+.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: black;
+ }
+
+ /* INDIVIDUAL TASK BUTTONS */
+ .btn-customStart, .btn-customEdit, .btn-customDelete {
+   display: block;
+   width: 50%;
+ }
+
+ /* MODAL STYLING */
+
+ .modal-form {
+   padding: 20px;
+ }
+ .modal-paragraph {
+   text-align: center;
+ }
+ .modal-edit {
+   margin-top: 20px;
+ }
