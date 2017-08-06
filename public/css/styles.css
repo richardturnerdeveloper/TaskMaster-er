@@ -56,6 +56,14 @@
    background-color: red;
    color: white;
    padding: 10px;
+   padding-bottom:10px;
    border-radius: 10px;
    margin-bottom: 3px;
+ }
+.btn-Submit {
+  margin-right: 10px;
+}
+ .btn-todoDelete {
+   float: right;
+   padding: 5px;
  }
