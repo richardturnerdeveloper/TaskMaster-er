@@ -1,3 +1,29 @@
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add new Task:</h4>
+          </div>
+          <div class="modal-body">
+            <form action="/tasks" method="POST">
+              <div class="form-group">
+                <label for="taskTitle">Task title:</label>
+                <input id="taskTitle" type="text" class="form-control" name="titleTsk" value="" >
+                <br><br>
+                <label for="numForm">Target hours:</label>
+                <br>
+                <input id="numForm" type="number" name="goalNum" placeholder="10,000">
+              </div>
+              <br><br>
+              <button type="submit" class="btn btn-success" name="startTsk" value="Start task!"><i class="fa fa-plus" aria-hidden="true"></i>ADD</button>
+            </form>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -5,13 +5,40 @@
     <p>PERCENTAGE COMPLETED: {{goalPercent task.time task.goalTime}}%</p>
     <form action="{{task._id}}?_method=PUT" method="POST">
       {{#if task.inProgress}}
-      <input type="submit" name="stopTsk" value="STOP">
+      <input class="btn btn-warning" type="submit" name="stopTsk" value="STOP">
       {{else}}
-      <input type="submit" name="startTsk" value="START">
+      <input class="btn btn-primary" type="submit" name="startTsk" value="START">
       {{/if}}
     </form>
-    <form action="{{task._id}}?_method=DELETE" method="POST">
-      <input type="submit" name="" value="DELETE">
-    </form>
-    <p><a href="/tasks">Click here to return to the task-masterer page.</a></p>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-sm2">EDIT</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm1">DELETE</button>
+    <p><a href="/tasks">Click here to return to the tasks page.</a></p>
+    <!-- delete modal -->
+    <div class="modal fade bs-example-modal-sm1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel1">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          ARE YOU SURE YOU WANT TO DELETE THIS TASK?
+          <form action="{{task._id}}?_method=DELETE" method="POST">
+            <input class="btn btn-danger" type="submit" name="" value="YES, I AM.  DELETE IT!">
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end delete modal -->
+    <!-- edit modal -->
+    <div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel2">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <form action="{{task._id}}?_method=PUT" method="POST">
+              <label for="taskTitle">Edit task title:</label>
+              <input id="taskTitle" type="text" name="editTitleTsk" value="">
+              <input type="submit" name="" value="submit">
+            <br><br>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end edit modal -->
+
 {{> footer}}

@@ -3,8 +3,14 @@
       <head>
         <meta charset="utf-8">
         <title>{{task.title}}</title>
+        <script
+        src="http://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://use.fontawesome.com/f971beed2e.js"></script>
+
       </head>
       <body>
 
@@ -14,15 +20,11 @@
               <a class="navbar-brand" href="/">
                 <i class="fa fa-home fa-2x" aria-hidden="true"></i>
               </a>
+              <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+                Add Task
+              </button>
             </div>
-            <form class="navbar-form navbar-left" action="/tasks" method="POST">
-              <div class="form-group">
-                <input type="text" class="form-control" name="titleTsk" value="" placeholder="TASK TITLE">
-                <label for="ticketNum">Target hours:</label>
-                <input id="numForm" type="number" name="goalNum" placeholder="10,000">
-              </div>
-              <button type="submit" class="btn btn-success" name="startTsk" value="Start task!">  <i class="fa fa-plus" aria-hidden="true"></i></button>
-            </form>
+
           </div>
         </nav>
         <div class="container">
