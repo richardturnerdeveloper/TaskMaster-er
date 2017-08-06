@@ -31,6 +31,7 @@ app.set('view engine', 'hbs');
 
 //---------ROUTES --------- //
 app.use('/tasks', require('./routes/tasks'));
+app.use('/todos', require('./routes/todos'));
 
 app.get("/", (req, res) => {
   res.render('home');
