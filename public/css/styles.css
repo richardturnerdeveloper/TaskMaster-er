@@ -34,3 +34,8 @@
  .modal-edit {
    margin-top: 20px;
  }
+
+ /* NOTES STYLES */
+ .note-zone {
+   border-left: 1px solid black;
+ }
