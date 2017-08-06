@@ -35,8 +35,11 @@ var Task = mongoose.model('Task', {
     type: String,
     default: new Date().toDateString(),
     required: true
-  }
-
+  },
+    notes: [{title: String, body: String, date: {
+      type: String,
+      default: new Date().toDateString()
+    }}]
 });
 
 module.exports = {Task};
