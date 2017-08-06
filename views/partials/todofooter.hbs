@@ -1,3 +1,25 @@
   </div>
+  <!-- add Todo Modal -->
+  <div class="modal fade" id="myModalAddTodo" tabindex="-1" role="dialog" aria-labelledby="myModalLabelAddTodo">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabelAddTodo">Add new Todo:</h4>
+        </div>
+        <div class="modal-body">
+          <form class="modal-form" action="/todos" method="POST">
+            <div class="form-group">
+              <label for="todoTitle">Todo title:</label>
+              <input id="todoTitle" type="text" class="form-control" name="titleTodo" value="" >
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-success" name="startTodo" value="Start task!"><i class="fa fa-plus" aria-hidden="true"></i>ADD</button>
+          </form>
+        </div>
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
