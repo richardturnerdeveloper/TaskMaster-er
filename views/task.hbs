@@ -29,11 +29,11 @@
 
 <!-- BEGIN note DISPLAY -->
 <div class="note-zone col-md-6">
-  <h1>NOTES FOR {{task.title}}</h1>
+  <h1>NOTES FOR THIS TASK:</h1>
   <button type="button" class="btn btn-warning btn-customEdit" data-toggle="modal" data-target=".bs-example-modal-sm3">NEW NOTE</button>
   <hr>
   {{#each task.notes}}
-    <h1>{{title}}</h1>
+
     <p>{{body}}</p>
     <p>- <em>{{date}}</em></p>
 
@@ -73,8 +73,6 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <form class="modal-form" action="{{task._id}}?_method=PUT" method="POST">
-          <label for="noteTitle">Note title:</label>
-          <input id="noteTitle" type="text" name="noteTitle" value="">
           <label for="noteBody">Note body:</label>
           <input id="noteBody" type="text" name="noteBody" value="">
           <input class="modal-edit btn btn-primary btn-block" type="submit" name="" value="submit">

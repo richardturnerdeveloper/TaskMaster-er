@@ -36,7 +36,7 @@ var Task = mongoose.model('Task', {
     default: new Date().toDateString(),
     required: true
   },
-    notes: [{title: String, body: String, date: {
+    notes: [{body: String, date: {
       type: String,
       default: new Date().toDateString()
     }}]

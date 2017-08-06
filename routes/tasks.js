@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
     target = target * 1000;
   }
   var newTask = new Task({
-    title: req.body.titleTsk,
+    title: req.body.titleTsk.toUpperCase(),
     goalTime: target
   });
   newTask.save().then((task) => {
@@ -59,9 +59,8 @@ router.put("/:id", (req, res) => {
     return res.status(400).send('Object ID not valid!');
   }
   //IF note ADDED
-  if (req.body.noteTitle && req.body.noteBody){
+  if (req.body.noteBody){
     var newNote = {
-      title: req.body.noteTitle,
       body: req.body.noteBody
     }
     Task.findByIdAndUpdate(id, {$push: {notes: newNote}}).then((note) => {
