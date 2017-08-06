@@ -42,3 +42,20 @@
  #noteBody{
    width: 100%;
  }
+
+ /* TODOS STYLES */
+ .todoTitle, .todoDate, .todoCompleted {
+   display: inline;
+   padding-right: 20px;
+ }
+ .todoDate, .todoCompleted {
+   border-left: 1px solid white;
+   padding-left: 10px;
+ }
+ .todos {
+   background-color: red;
+   color: white;
+   padding: 10px;
+   border-radius: 10px;
+   margin-bottom: 3px;
+ }
