@@ -31,6 +31,10 @@ var Task = mongoose.model('Task', {
     type: Boolean,
     default: false,
     required: true
+  }, dateStarted: {
+    type: String,
+    default: new Date().toDateString(),
+    required: true
   }
 
 });
