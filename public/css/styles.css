@@ -39,3 +39,6 @@
  .note-zone {
    border-left: 1px solid black;
  }
+ #noteBody{
+   width: 100%;
+ }
