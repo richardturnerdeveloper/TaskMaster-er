@@ -43,7 +43,11 @@ router.put("/:id", (req, res) => {
       url: '/todos'
     });
   }
-  Todo.findByIdAndUpdate(id, {$set: {completed: true, color: 'green'}}).then((todo) => {
+  Todo.findByIdAndUpdate(id, {$set: {
+      completed: true,
+      color: 'green',
+      dateCompleted: new Date().toString()
+    }}).then((todo) => {
     res.redirect("/todos");
   }).catch((e) => {
     res.status(404).render('lost', {

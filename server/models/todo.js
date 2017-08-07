@@ -19,6 +19,8 @@ var Todo = mongoose.model('Todo', {
     type: String,
     required: true,
     default: 'red'
+  }, dateCompleted: {
+    type: String
   }
 });
 

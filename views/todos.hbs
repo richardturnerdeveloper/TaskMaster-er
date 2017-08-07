@@ -47,7 +47,6 @@
     {{/if}}
     <h3 class="todoTitle">{{title}}</h3>
     <p class="todoDate"><b>DATE ADDED:</b> {{dateStarted}}</p>
-    <p class="todoCompleted"><b>COMPLETE:</b> {{completed}}</p>
     <form class="todoForm" action="/todos/{{_id}}?_method=DELETE" method="POST">
       <input type="submit" name="deleteTodo" class="btn btn-todoDelete btn-danger" value="DELETE">
     </form>
