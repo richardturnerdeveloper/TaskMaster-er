@@ -8,7 +8,7 @@ const conv = require('./../lib/conv');
 
 //LIST TASKS
 router.get("/", (req, res) => {
-  Task.find().then((tasks) => {
+  Task.find().sort({_id: -1}).then((tasks) => {
     if (tasks.length === 0){
       return res.status(200).render('tasks', {
         title: 'No tasks yet! Click the green button to add one.'
