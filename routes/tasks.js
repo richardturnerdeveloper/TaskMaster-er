@@ -87,11 +87,19 @@ router.put("/:id", (req, res) => {
     var newNote = {
       body: req.body.noteBody
     }
-    Task.findByIdAndUpdate(id, {$push: {notes: newNote}}).then((note) => {
+    Task.findByIdAndUpdate(id, {$push:
+        {
+          notes: {
+            $each: [newNote],
+            $position: 0
+          }
+        }
+      }).then((note) => {
       res.redirect('/tasks/' + id);
     }).catch((e) => {
+      console.log(e);
       res.status(404).render('lost', {
-        errMessage: 'that task could not be updated at this time.',
+        errMessage: 'that note could not be updated at this time.',
         url: '/tasks'
       });
     });
