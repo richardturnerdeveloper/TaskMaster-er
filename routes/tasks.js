@@ -10,15 +10,15 @@ const conv = require('./../lib/conv');
 router.get("/", (req, res) => {
   Task.find().then((tasks) => {
     if (tasks.length === 0){
-      return res.render('tasks', {
+      return res.status(200).render('tasks', {
         title: 'No tasks yet! Click the green button to add one.'
       });
     }
-    res.render("tasks", {
+    res.status(200).render("tasks", {
       tasks
     });
   }).catch((e) => {
-    res.render("lost", {
+    res.status(404).render("lost", {
       errMessage: 'there were no tasks in the database.',
       url: '/tasks'
     });
@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
   newTask.save().then((task) => {
     res.redirect("/tasks");
   }).catch((e) => {
-    res.render("lost", {
+    res.status(404).render("lost", {
       errMessage: 'a task by the name could not be created.',
       url: '/tasks'
     });
@@ -49,23 +49,23 @@ router.post("/", (req, res) => {
 router.get("/:id", (req, res) => {
   var id = req.params.id;
   if (!ObjectID.isValid(id)){
-    return res.render('lost', {
+    return res.status(400).render('lost', {
       errMessage: 'that is not a valid ID!',
       url: '/tasks'
     });
   }
   Task.findById(id).then((task) => {
       if(!task){
-        return res.render('lost', {
+        return res.status(404).render('lost', {
           errMessage: 'we could not find that task!',
           url: '/tasks'
         });
       }
-      res.render("task",{
+      res.status(200).render("task",{
         task
       });
   }).catch((e) => {
-    res.render("lost", {
+    res.status(404).render("lost", {
       errMessage: 'that particular task does not exist. Really sorry and all!',
       url: '/tasks'
     });
@@ -77,7 +77,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", (req, res) => {
   var id = req.params.id;
   if (!ObjectID.isValid(id)){
-    return res.render('lost', {
+    return res.status(400).render('lost', {
       errMessage: 'that is not a valid ID!',
       url: '/tasks'
     });
@@ -90,7 +90,7 @@ router.put("/:id", (req, res) => {
     Task.findByIdAndUpdate(id, {$push: {notes: newNote}}).then((note) => {
       res.redirect('/tasks/' + id);
     }).catch((e) => {
-      res.render('lost', {
+      res.status(404).render('lost', {
         errMessage: 'that task could not be updated at this time.',
         url: '/tasks'
       });
@@ -101,7 +101,7 @@ router.put("/:id", (req, res) => {
     Task.findByIdAndUpdate(id, {$set: {title: req.body.editTitleTsk}}).then((task) => {
       res.redirect('/tasks/' + id);
     }).catch((e) => {
-      res.render('lost', {
+      res.status(404).render('lost', {
         errMessage: 'that task could not be updated at this time.',
         url: '/tasks'
       });
@@ -112,7 +112,7 @@ router.put("/:id", (req, res) => {
     Task.findByIdAndUpdate(id, {$set: {startTime: conv.taskCount(), inProgress:true}}).then((task) => {
       res.redirect('/tasks/' + id);
     }).catch((e) => {
-      res.render('lost', {
+      res.status(404).render('lost', {
         errMessage: 'that task could not be updated at this time.',
         url: '/tasks'
       });
@@ -135,13 +135,13 @@ router.put("/:id", (req, res) => {
       Task.findByIdAndUpdate(id, {$set: {time: newTime, inProgress:false}}).then((task) => {
         res.redirect('/tasks/' + id);
       }).catch((e) => {
-        res.render('lost', {
+        res.status(404).render('lost', {
           errMessage: 'that task could not be updated at this time.',
           url: '/tasks'
         });
       });
     }).catch((e) => {
-      res.render('lost', {
+      res.status(404).render('lost', {
         errMessage: 'that task could not be updated at this time.',
         url: '/tasks'
       });
@@ -153,7 +153,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   var id = req.params.id;
   if (!ObjectID.isValid(id)){
-    return res.render('lost', {
+    return res.status(400).render('lost', {
       errMessage: 'that is not a valid ID!',
       url: '/tasks'
     });
@@ -161,7 +161,7 @@ router.delete("/:id", (req, res) => {
   Task.findByIdAndRemove(id).then((task) => {
     res.redirect("/tasks");
   }).catch((e) => {
-    res.render('lost', {
+    res.status(404).render('lost', {
       errMessage: 'that task could not be deleted at this time.',
       url: '/tasks'
     });
