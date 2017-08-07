@@ -3,6 +3,24 @@
 #taskUl {
   list-style: none;
 }
+/* HOME PAGE STYLES */
+
+.homeHeader, .homeRow {
+  text-align: center;
+  font-size: 64px;
+}
+.btnHome, .btnHome:hover {
+  color: white;
+  text-decoration: none;
+}
+.homeText {
+  font-size: 48px;
+}
+.btnHome .btn {
+
+}
+
+
 
 /* PROGRESS BAR STYLES  */
 .progress {

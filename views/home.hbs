@@ -4,12 +4,22 @@
     <meta charset="utf-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
     <div class="container">
-      <h1>Welcome to the home page!</h1>
-      <a href="/tasks">VIEW TASKS</a>
-      <a href="/todos">VIEW TODOS</a>
+      <h1 class="homeHeader">TASK MASTER-ER</h1>
+      <hr>
+      <div class="row">
+        <div class="col-md-6 homeRow">
+          <span class="homeText">You have {{tasks}} TASKS.</span><br>
+          <a class="btnHome" href="/tasks"><button class="btn-home btn btn-lg btn-primary">TASKS</button></a>
+        </div>
+        <div class="col-md-6 homeRow">
+          <span class="homeText">You have {{todos}} TODOS.</span><br>
+            <a class="btnHome" href="/todos"><button class="btn-home btn btn-lg btn-warning">TODOS</button></a>
+        </div>
+      </div>
     </div>
   </body>
 </html>

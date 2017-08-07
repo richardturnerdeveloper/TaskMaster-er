@@ -2,7 +2,8 @@ const express = require('express');
 const methodOverride = require('method-override');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
-
+const {Task} = require('./server/models/task');
+const {Todo} = require('./server/models/todo');
 var app = express();
 
 app.use(methodOverride('_method'));
@@ -34,11 +35,26 @@ app.use('/tasks', require('./routes/tasks'));
 app.use('/todos', require('./routes/todos'));
 
 app.get("/", (req, res) => {
-  res.render('home');
+  Task.find().then((tasks) => {
+    Todo.find().then((todos) => {
+      res.status(200).render('home', {
+        tasks: tasks.length,
+        todos: todos.length,
+      })
+    });
+  }).catch((e) => {
+    res.status(404).render('lost', {
+      errMessage: 'Something went really really wrong!',
+      url: '/'
+    });
+  });
 });
 
 app.get("/lost", (req, res) => {
-  res.render("lost");
+  res.render("lost", {
+    errMessage: 'Something went wrong!',
+    url: '/'
+  });
 });
 
 app.listen(3000, () => {
