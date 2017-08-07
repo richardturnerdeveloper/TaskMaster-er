@@ -33,12 +33,24 @@
 <h1>Todos</h1>
 <hr>
 {{#each todos}}
-  <div class="todos">
-    <input class="btn btn-Submit btn-primary" name="completeTodo" type="submit" action="/{{_id}}?_method=PUT" method="POST" value="COMPLETE">
+  <div class="todos" style="background-color:{{color}}">
+    {{#if completed}}
+      <div class="completedIcon">
+        <i class="fa fa-check-square fa-2x" aria-hidden="true"></i>
+        <i class="fa fa-check-square fa-2x" aria-hidden="true"></i>
+        <i class="fa fa-check-square fa-2x" aria-hidden="true"></i>
+      </div>
+    {{else}}
+      <form class="todoForm" action="/todos/{{_id}}?_method=PUT" method="POST">
+        <input class="btn btn-Submit btn-primary" name="completeTodo" type="submit" value="COMPLETE">
+      </form>
+    {{/if}}
     <h3 class="todoTitle">{{title}}</h3>
     <p class="todoDate"><b>DATE ADDED:</b> {{dateStarted}}</p>
     <p class="todoCompleted"><b>COMPLETE:</b> {{completed}}</p>
-    <input type="submit" name="deleteTodo" class="btn btn-todoDelete btn-danger" action="/{{_id}}?_method=DELETE" method="POST" value="DELETE">
+    <form class="todoForm" action="/todos/{{_id}}?_method=DELETE" method="POST">
+      <input type="submit" name="deleteTodo" class="btn btn-todoDelete btn-danger" value="DELETE">
+    </form>
   </div>
 {{/each}}
 

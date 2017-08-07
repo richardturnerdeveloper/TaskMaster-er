@@ -15,6 +15,10 @@ var Todo = mongoose.model('Todo', {
     type: String,
     default: new Date().toDateString(),
     required: true
+  }, color: {
+    type: String,
+    required: true,
+    default: 'red'
   }
 });
 
