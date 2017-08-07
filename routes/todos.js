@@ -9,6 +9,9 @@ const conv = require('./../lib/conv');
 //VIEW TODOS
 router.get("/", (req, res) => {
   Todo.find().sort({_id: -1}).then((todos) => {
+    if (todos.length === 0){
+      return res.status(200).render('todos', {message: 'No todos yet.  Click the button above to add one!'});
+    }
       res.status(200).render('todos', {todos});
   }).catch((e) => {
     res.status(404).render('lost', {
@@ -46,7 +49,7 @@ router.put("/:id", (req, res) => {
   Todo.findByIdAndUpdate(id, {$set: {
       completed: true,
       color: 'green',
-      dateCompleted: new Date().toString()
+      dateCompleted: new Date().toString().substr(0,15)
     }}).then((todo) => {
     res.redirect("/todos");
   }).catch((e) => {

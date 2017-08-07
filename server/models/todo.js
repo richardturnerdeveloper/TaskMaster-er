@@ -18,7 +18,7 @@ var Todo = mongoose.model('Todo', {
   }, color: {
     type: String,
     required: true,
-    default: 'red'
+    default: '#333'
   }, dateCompleted: {
     type: String
   }

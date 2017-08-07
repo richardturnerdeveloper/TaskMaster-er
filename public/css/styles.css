@@ -44,27 +44,50 @@
  }
 
  /* TODOS STYLES */
+
+ .btn-danger {
+   background-color: #ff9900;
+   color: white;
+   border: 1px solid #ff9900;
+ }
+ .btn-danger:hover {
+   background-color: #663d00;
+   border: 1px solid #663d00;
+ }
+ .btn-primary {
+   background-color: darkgreen;
+ }
+
+ .btn-primary:hover {
+    color: #fff;
+    background-color: green;
+    border-color: #204d74;
+}
  .todoTitle, .todoDate, .todoCompleted {
    display: inline;
    padding-right: 20px;
  }
- .todoDate, .todoCompleted {
-   border-left: 1px solid white;
-   padding-left: 10px;
+ .todoDate {
+   border-right: 1px solid #333;
  }
  .todos {
-   color: white;
    padding: 10px;
-   padding-bottom:10px;
+   border-bottom: 1px solid #333;
+   color: white;
    border-radius: 10px;
-   margin-bottom: 3px;
  }
 .btn-Submit {
   margin-right: 10px;
+  background-color: white;
+  color: #333;
+  width: 110px;
+  text-align: center;
+  border: none;
 }
  .btn-todoDelete {
    float: right;
    padding: 5px;
+   width: 100px;
  }
  .todoForm {
    display: inline;
