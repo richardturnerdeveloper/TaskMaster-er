@@ -16,6 +16,17 @@
 .homeText {
   font-size: 48px;
 }
+.fa-info-circle {
+  font-size: 24px;
+  display: inline;
+  left: 90%;
+  top: 5%;
+  position: absolute;
+  color: blue;
+}
+.fa-info-circle:hover {
+  color: darkblue;
+}
 /* PROGRESS BAR STYLES  */
 .progress {
   width: 50%;

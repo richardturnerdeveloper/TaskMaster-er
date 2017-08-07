@@ -50,6 +50,10 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/about", (req, res) => {
+  res.render('about');
+});
+
 app.get("/lost", (req, res) => {
   res.render("lost", {
     errMessage: 'Something went wrong!',
