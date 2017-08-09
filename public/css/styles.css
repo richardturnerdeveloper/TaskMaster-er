@@ -4,7 +4,13 @@
   list-style: none;
 }
 /* HOME PAGE STYLES */
+.dayHeader {
+  text-align: center;
 
+}
+.fa-sun-o {
+  color: yellow;
+}
 .homeHeader, .homeRow {
   text-align: center;
   font-size: 64px;

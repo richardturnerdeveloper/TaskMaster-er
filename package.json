@@ -16,6 +16,8 @@
     "lodash": "^4.17.4",
     "method-override": "^2.3.9",
     "mongodb": "^2.2.30",
-    "mongoose": "^4.11.5"
+    "mongoose": "^4.11.5",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
   }
 }

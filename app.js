@@ -4,6 +4,7 @@ const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const {Task} = require('./server/models/task');
 const {Todo} = require('./server/models/todo');
+const {asyncDayLight} = require('./lib/hours');
 var app = express();
 
 app.use(methodOverride('_method'));
@@ -37,10 +38,21 @@ app.use('/todos', require('./routes/todos'));
 app.get("/", (req, res) => {
   Task.find().then((tasks) => {
     Todo.find().then((todos) => {
-      res.status(200).render('home', {
-        tasks: tasks.length,
-        todos: todos.length,
-      })
+      var totalHours = "";
+      var hours = asyncDayLight().then((doc) => {
+        res.status(200).render('home', {
+          tasks: tasks.length,
+          todos: todos.length,
+          hours: doc,
+          today: new Date().toString().substr(0,15)
+        });
+      }).catch((e) => {
+        res.status(404).render('lost', {
+          errMessage: 'there was an ERROR fectching daylight hours.',
+          url: '/'
+        });
+      });
+
     });
   }).catch((e) => {
     res.status(404).render('lost', {
