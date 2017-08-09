@@ -5,7 +5,10 @@ const bodyParser = require('body-parser');
 const {Task} = require('./server/models/task');
 const {Todo} = require('./server/models/todo');
 const {asyncDayLight} = require('./lib/hours');
+const helpers = require('./lib/helpers');
 var app = express();
+
+console.log(helpers.viewHours(4543857439584));
 
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,20 +16,8 @@ app.use(express.static('public'));
 
 hbs.registerPartials(__dirname + '/views/partials');
 
-hbs.registerHelper('viewHours', function(difference){
-  difference = difference * 0.001; //convert milliseconds to seconds
-  difference = difference * 0.0166667; //convert seconds to minutes
-  difference = difference * 0.0166667; //convert minutes to hours
-  if (difference > 10000){
-    difference = Math.floor(difference);
-  }
-  return difference.toFixed(3);
-});
-hbs.registerHelper('goalPercent', function(time, goalTime) {
-  var percentage = time / goalTime;
-  percentage = percentage * 100;
-  return percentage.toFixed(0);
-});
+hbs.registerHelper('viewHours', helpers.viewHours);
+hbs.registerHelper('goalPercent', helpers.goalPercent);
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');
