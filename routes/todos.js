@@ -24,53 +24,60 @@ router.get("/", (req, res) => {
 });
 //ADD A todo
 router.post("/", (req, res) => {
-  var newTodo = new Todo(req.body);
-  newTodo.save()
-    .then((todo) => {
-      res.status(200).send(todo);
-    })
-    .catch((e) => {
-      res.status(400).send(e);
-    });
+  if (req.body.titleTodo){
+    var title = req.body.titleTodo;
+    var body = {
+      title
+    }
+    var newTodo = new Todo(body);
+    newTodo.save()
+      .then((todo) => {
+        return res.status(200).redirect("/todos");
+      })
+      .catch((e) => {
+        return res.status(400).send(e);
+      });
+    }
+    res.redirect('/lost');
 });
-//COMPLETE A todo
-// router.put("/:id", (req, res) => {
-//   var id = req.params.id;
-//   if (!ObjectID.isValid(id)){
-//     res.status(400).render('lost', {
-//       errMessage: 'that is not a valid ID!',
-//       url: '/todos'
-//     });
-//   }
-//   Todo.findByIdAndUpdate(id, {$set: {
-//       completed: true,
-//       color: 'green',
-//       dateCompleted: new Date().toString().substr(0,15)
-//     }}).then((todo) => {
-//     res.redirect("/todos");
-//   }).catch((e) => {
-//     res.status(404).render('lost', {
-//       errMessage: 'that TODO could not be updated at this time! Woopsie!',
-//       url: '/todos'
-//     });
-//   });
-// });
-// //DELETE A todo
-// router.delete('/:id', (req, res) => {
-//   var id = req.params.id;
-//   if (!ObjectID.isValid(id)){
-//     res.status(400).render('lost', {
-//       errMessage: 'that is not a valid ID!',
-//       url: '/todos'
-//     });
-//   }
-//   Todo.findByIdAndRemove(id).then((todo) => {
-//     res.redirect("/todos");
-//   }).catch((e) => {
-//     res.status(400).render('lost', {
-//       errMessage: 'could not remove that todo at this time!',
-//       url: '/todos'
-//     });
-//   });
-// });
+// COMPLETE A todo
+router.put("/:id", (req, res) => {
+  var id = req.params.id;
+  if (!ObjectID.isValid(id)){
+    res.status(400).render('lost', {
+      errMessage: 'that is not a valid ID!',
+      url: '/todos'
+    });
+  }
+  Todo.findByIdAndUpdate(id, {$set: {
+      completed: true,
+      color: 'green',
+      dateCompleted: new Date().toString().substr(0,15)
+    }}).then((todo) => {
+    res.redirect("/todos");
+  }).catch((e) => {
+    res.status(404).render('lost', {
+      errMessage: 'that TODO could not be updated at this time! Woopsie!',
+      url: '/todos'
+    });
+  });
+});
+//DELETE A todo
+router.delete('/:id', (req, res) => {
+  var id = req.params.id;
+  if (!ObjectID.isValid(id)){
+    res.status(400).render('lost', {
+      errMessage: 'that is not a valid ID!',
+      url: '/todos'
+    });
+  }
+  Todo.findByIdAndRemove(id).then((todo) => {
+    res.redirect("/todos");
+  }).catch((e) => {
+    res.status(400).render('lost', {
+      errMessage: 'could not remove that todo at this time!',
+      url: '/todos'
+    });
+  });
+});
 module.exports = router;

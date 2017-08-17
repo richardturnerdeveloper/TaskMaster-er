@@ -11,7 +11,7 @@ const {env, port, mongoose} = require('./server/config');
 var app = express();
 
 app.use(methodOverride('_method'));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 hbs.registerPartials(__dirname + '/views/partials');
