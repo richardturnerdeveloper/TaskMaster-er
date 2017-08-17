@@ -6,12 +6,12 @@ const bodyParser = require('body-parser');
 const {Task} = require('./server/models/task');
 const {Todo} = require('./server/models/todo');
 
-const {env, port} = require('./server/config');
+const {env, port, mongoose} = require('./server/config');
 
 var app = express();
 
 app.use(methodOverride('_method'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -59,7 +59,7 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/lost", (req, res) => {
-  res.render("lost", {
+  res.status(404).render("lost", {
     errMessage: 'Something went wrong!',
     url: '/'
   });
