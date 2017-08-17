@@ -2,8 +2,12 @@ const express = require('express');
 const methodOverride = require('method-override');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
+
 const {Task} = require('./server/models/task');
 const {Todo} = require('./server/models/todo');
+
+const {env, port} = require('./server/config');
+
 var app = express();
 
 app.use(methodOverride('_method'));
@@ -11,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 hbs.registerPartials(__dirname + '/views/partials');
-
+//------- HELPER FUNCTIONS -----------//
 hbs.registerHelper('viewHours', function(difference){
   difference = difference * 0.001; //convert milliseconds to seconds
   difference = difference * 0.0166667; //convert seconds to minutes
@@ -51,7 +55,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.render('about');
+  res.status(200).render('about');
 });
 
 app.get("/lost", (req, res) => {
@@ -61,8 +65,8 @@ app.get("/lost", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server running');
+app.listen(port, () => {
+  console.log(`Server running on ${port}`);
 });
 
 module.exports.app = app;
