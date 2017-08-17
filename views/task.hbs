@@ -1,0 +1,85 @@
+{{> header}}
+<div class="row">
+  <div class="col-md-6">
+<!-- BEGIN TASK DISPLAY -->
+    <h1>{{task.title}}</h1>
+    <p><b>TIME TASKED: </b>{{viewHours task.time}} HOURS</p>
+    <p><b>GOAL: </b><em>{{viewHours task.goalTime}} HOURS</em></p>
+    <p><b>DATE STARTED: </b>{{task.dateStarted}}</p>
+    <p><em>PERCENTAGE COMPLETED:</em> </p>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{goalPercent task.time task.goalTime}}%" aria-valuenow="{{goalPercent task.time task.goalTime}}" aria-valuemin="0" aria-valuemax="100"><span>{{goalPercent task.time task.goalTime}}%</span></div>
+    </div>
+
+    <form action="{{task._id}}?_method=PUT" method="POST">
+      {{#if task.inProgress}}
+      <input class="btn btn-warning btn-customStart" type="submit" name="stopTsk" value="STOP">
+
+      {{else}}
+      <input class="btn btn-primary btn-customStart" type="submit" name="startTsk" value="START">
+
+      {{/if}}
+    </form>
+    <button type="button" class="btn btn-info btn-customEdit" data-toggle="modal" data-target=".bs-example-modal-sm2">EDIT</button>
+    <button type="button" class="btn btn-danger btn-customDelete" data-toggle="modal" data-target=".bs-example-modal-sm1">DELETE</button>
+
+
+<!-- END TASK display -->
+</div>
+
+<!-- BEGIN note DISPLAY -->
+<div class="note-zone col-md-6">
+  <h1>NOTES FOR THIS TASK:</h1>
+  <button type="button" class="btn btn-warning btn-customEdit" data-toggle="modal" data-target=".bs-example-modal-sm3">NEW NOTE</button>
+  <hr>
+  {{#each task.notes}}
+
+    <p>{{body}}</p>
+    <p>- <em>{{date}}</em></p>
+
+  {{/each}}
+</div>
+
+</div>
+<!-- delete modal -->
+<div class="modal fade bs-example-modal-sm1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel1">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <p class="modal-form">ARE YOU SURE YOU WANT TO DELETE THIS TASK?</p>
+      <form class="modal-form modal-paragraph" action="{{task._id}}?_method=DELETE" method="POST">
+        <input class="btn btn-danger btn-block" type="submit" name="" value="YES, I AM.  DELETE IT!">
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end delete modal -->
+<!-- edit modal -->
+<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel2">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <form class="modal-form" action="{{task._id}}?_method=PUT" method="POST">
+          <label for="taskTitle">Edit task title:</label>
+          <input id="taskTitle" type="text" name="editTitleTsk" value="">
+          <input class="modal-edit btn btn-info btn-block" type="submit" name="" value="submit">
+        <br><br>
+
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end edit modal -->
+<!-- add note modal -->
+<div class="modal fade bs-example-modal-sm3" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel3">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <form class="modal-form" action="{{task._id}}?_method=PUT" method="POST">
+          <label for="noteBody">Note body:</label><br>
+          <textarea id="noteBody" name="noteBody" value=""></textarea>
+          <input class="modal-edit btn btn-primary btn-block" type="submit" name="" value="submit">
+        <br><br>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end add note modal -->
+{{> footer}}
