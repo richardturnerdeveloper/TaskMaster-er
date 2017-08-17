@@ -4,53 +4,7 @@ const expect = require('expect');
 const {Todo} = require('./../server/models/todo');
 const {Task} = require('./../server/models/task');
 
-const todos = [
-  {
-    title: 'Go to work'
-  },
-  {
-    title: 'Eat icecream'
-  }
-];
-
-const tasks = [
-  {
-    title: 'Learn guitar',
-    goalTime: 50000,
-    notes: [{
-      body: 'Doing good'
-    }]
-  },
-  {
-    title: 'Go to school'
-  }
-]
-
-const populateTodos = (done) => {
-  Todo.remove({})
-    .then(() => {
-      return Todo.insertMany(todos);
-    })
-    .then(() => {
-      done();
-    })
-    .catch((e) => {
-      return done(e);
-    });
-}
-
-const populateTasks = (done) => {
-  Task.remove({})
-    .then(() => {
-      return Task.insertMany(tasks);
-    })
-    .then(() => {
-      done();
-    })
-    .catch((e) => {
-      return done(e);
-    });
-}
+const {populateTodos, populateTasks, todos, tasks} = require('./seed/seed');
 
 beforeEach(populateTodos);
 beforeEach(populateTasks);
@@ -110,27 +64,26 @@ var app = require('./../app').app;
     });
   });
   describe('POST /todos tests', function(){
-    it('should post a new todo', function(done){
+    it('should post a new todo and redirect successfully', function(done){
 
       request(app)
         .post("/todos")
-        .send('titleTodo=Eat cat')
-        .expect(200)
+        .type('form')
+        .send('titleTodo=Eat popcorn')
+        .expect(302)
+        .expect('Location', '/todos')
         .end((err, res) => {
           if (err){
-            done(err);
+            return done(err);
           }
           Todo.find()
             .then((todos) => {
               expect(todos.length).toBe(3);
-              console.log(todos);
-              
-              done();
+              return done();
             })
             .catch((e) => {
-              done(e);
+              return done(e);
             });
-
-        })
+        });
     });
   });

@@ -3,9 +3,12 @@ const express = require('express')
 
 const {env, port, mongoose} = require('./../server/config');
 const {ObjectID} = require('mongodb');
+const bodyParser = require('body-parser');
 
 const {Todo} = require('./../server/models/todo');
 const conv = require('./../lib/conv');
+
+router.use(bodyParser.urlencoded({ extended: false }));
 
 //VIEW TODOS
 router.get("/", (req, res) => {
@@ -32,13 +35,15 @@ router.post("/", (req, res) => {
     var newTodo = new Todo(body);
     newTodo.save()
       .then((todo) => {
-        return res.status(200).redirect("/todos");
+        return res.redirect("/todos");
       })
       .catch((e) => {
-        return res.status(400).send(e);
+        return res.redirect('/lost');
       });
     }
-    res.redirect('/lost');
+    else {
+    return res.redirect('/lost');
+    }
 });
 // COMPLETE A todo
 router.put("/:id", (req, res) => {
