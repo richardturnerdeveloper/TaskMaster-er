@@ -49,7 +49,7 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   var id = req.params.id;
   if (!ObjectID.isValid(id)){
-    res.status(400).render('lost', {
+    return res.status(400).render('lost', {
       errMessage: 'that is not a valid ID!',
       url: '/todos'
     });
@@ -59,9 +59,9 @@ router.put("/:id", (req, res) => {
       color: 'green',
       dateCompleted: new Date().toString().substr(0,15)
     }}).then((todo) => {
-    res.redirect("/todos");
+    return res.redirect("/todos");
   }).catch((e) => {
-    res.status(404).render('lost', {
+    return res.status(404).render('lost', {
       errMessage: 'that TODO could not be updated at this time! Woopsie!',
       url: '/todos'
     });
