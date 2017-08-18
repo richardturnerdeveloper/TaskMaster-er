@@ -19,9 +19,6 @@ describe('GET /users route tests', function(){
         if (err){
           return done(err);
         }
-        expect(res.body.length).toBe(2);
-        expect(res.body[0].password).toNotExist();
-        expect(res.body[1].email).toNotExist();
         done();
       });
   });
@@ -50,7 +47,8 @@ describe('POST /users route tests', function(){
       .send('username=DoNOTeatDOGFOOD')
       .send('email=itsbadforyou@truth.org')
       .send('password=secretlyilovedogfood420')
-      .expect(200)
+      .expect(302)
+      .expect('Location', '/users')
       .end((err, res) => {
         if (err){
           return done(err);
@@ -126,6 +124,25 @@ describe('POST /users route tests', function(){
           })
           .catch((e) => {
             done(e);
+          });
+      });
+  });
+  it('should not store a plain text password when adding a user', function(done){
+    request(app)
+      .post('/users')
+      .send('username=DoNOTeatDOGFOOD')
+      .send('email=itsbadforyou@truth.org')
+      .send('password=secretlyilovedogfood420')
+      .expect(302)
+      .expect('Location', '/users')
+      .end((err, res) => {
+        if (err){
+          return done(err);
+        }
+        User.findOne({username: 'DoNOTeatDOGFOOD'})
+          .then((user) => {
+            expect(user.password).toNotBe('secretlyilovedogfood420');
+            done();
           });
       });
   });

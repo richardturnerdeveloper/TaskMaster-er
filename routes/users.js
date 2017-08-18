@@ -15,7 +15,11 @@ router.get("/", (req, res) => {
       if (users.length === 0){
         res.status(404).send();
       }
-      return res.status(200).send(users);
+      var usernames = users.map(function(user){
+        return _.pick(user, ['username']);
+      });
+      return res.status(200).render('users', {usernames});
+
     })
     .catch((e) => {
       return res.status(404).send();
@@ -37,7 +41,7 @@ router.post("/", (req, res) => {
       if (!user){
         newUser.save()
           .then((user) => {
-            return res.send(user);
+            return res.redirect('/users');
           })
           .catch((e) => {
             return res.status(400).render('lost', {
