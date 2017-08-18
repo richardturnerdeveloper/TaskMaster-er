@@ -48,6 +48,17 @@ UserSchema.methods.toJSON = function(){
   return _.pick(userObject, ['username']);
 }
 
+UserSchema.methods.generateAuthToken = function(){
+  user = this;
+  var access = 'auth';
+  var token = jwt.sign({_id: user.id, access}, 'abc123');
+  user.tokens.push({access, token});
+  return user.save()
+    .then(() => {
+      return token;
+    });
+}
+
 UserSchema.pre('save', function(done){
   var user = this;
   if(user.isModified('password')){

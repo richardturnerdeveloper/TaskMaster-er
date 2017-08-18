@@ -41,7 +41,18 @@ router.post("/", (req, res) => {
       if (!user){
         newUser.save()
           .then((user) => {
-            return res.redirect('/users');
+            return user.generateAuthToken();
+          })
+          .then((token) => {
+            User.find().then((users) => {
+              var usernames = users.map(function(user){
+                return _.pick(user, ['username']);
+              });
+              return res.header('x-auth', token).render('users', {usernames});
+            })
+            .catch((e) => {
+              res.send(e);
+            });
           })
           .catch((e) => {
             return res.status(400).render('lost', {
