@@ -17,7 +17,7 @@ var app = require('./../app').app;
         .expect(200)
         .end((err, res) => {
           if (err){
-            done(err);
+            return done(err);
           }
           Todo.find()
             .then((todos) => {

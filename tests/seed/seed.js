@@ -4,6 +4,8 @@ const {ObjectID} = require('mongodb');
 
 firstObjectID = new ObjectID();
 secondObjectID = new ObjectID();
+thirdObjectID = new ObjectID();
+fourthObjectID = new ObjectID();
 
 const todos = [
   {
@@ -18,6 +20,7 @@ const todos = [
 
 const tasks = [
   {
+    _id: thirdObjectID,
     title: 'Learn guitar',
     goalTime: 50000,
     notes: [{
@@ -25,6 +28,7 @@ const tasks = [
     }]
   },
   {
+    _id: fourthObjectID,
     title: 'Go to school'
   }
 ]
@@ -35,10 +39,10 @@ const populateTodos = (done) => {
       return Todo.insertMany(todos);
     })
     .then(() => {
-      done();
+      return done();
     })
     .catch((e) => {
-      return done(e);
+
     });
 }
 
@@ -48,10 +52,10 @@ const populateTasks = (done) => {
       return Task.insertMany(tasks);
     })
     .then(() => {
-      done();
+      return done();
     })
     .catch((e) => {
-      return done(e);
+
     });
 }
 

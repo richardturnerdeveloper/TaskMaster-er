@@ -5,6 +5,7 @@ const {ObjectID} = require('mongodb');
 const {Task} = require('./../server/models/task');
 const conv = require('./../lib/conv');
 const {env, port, mongoose} = require('./../server/config');
+const {addNote} = require('./../lib/taskFuncs');
 
 // LIST TASKS
 router.get("/", (req, res) => {
@@ -26,6 +27,12 @@ router.get("/", (req, res) => {
 });
 //ADD A NEW TASK
 router.post("/", (req, res) => {
+  if (!req.body.titleTsk){
+    return res.status(400).render("lost", {
+      errMessage: 'a task by the name could not be created.',
+      url: '/tasks'
+    });
+  }
   if (req.body.goalNum){
     var target = req.body.goalNum;
     target = target * 60;
@@ -37,9 +44,9 @@ router.post("/", (req, res) => {
     goalTime: target
   });
   newTask.save().then((task) => {
-    res.redirect("/tasks");
+    return res.redirect("/tasks");
   }).catch((e) => {
-    res.status(404).render("lost", {
+    return res.status(404).render("lost", {
       errMessage: 'a task by the name could not be created.',
       url: '/tasks'
     });
@@ -49,19 +56,19 @@ router.post("/", (req, res) => {
 router.get("/:id", (req, res) => {
   var id = req.params.id;
   if (!ObjectID.isValid(id)){
-    return res.status(400).render('lost', {
+    return res.status(404).render('lost', {
       errMessage: 'that is not a valid ID!',
       url: '/tasks'
     });
   }
   Task.findById(id).then((task) => {
       if(!task){
-        return res.status(404).render('lost', {
+        return res.status(400).render('lost', {
           errMessage: 'we could not find that task!',
           url: '/tasks'
         });
       }
-      res.status(200).render("task",{
+      return res.status(200).render("task",{
         task
       });
   }).catch((e) => {
@@ -76,6 +83,7 @@ router.get("/:id", (req, res) => {
 
 router.put("/:id", (req, res) => {
   var id = req.params.id;
+
   if (!ObjectID.isValid(id)){
     return res.status(400).render('lost', {
       errMessage: 'that is not a valid ID!',
@@ -84,32 +92,23 @@ router.put("/:id", (req, res) => {
   }
   //IF note ADDED
   if (req.body.noteBody){
-    var newNote = {
-      body: req.body.noteBody
-    }
-    Task.findByIdAndUpdate(id, {$push:
-        {
-          notes: {
-            $each: [newNote],
-            $position: 0
-          }
-        }
-      }).then((note) => {
-      res.redirect('/tasks/' + id);
-    }).catch((e) => {
-      console.log(e);
-      res.status(404).render('lost', {
-        errMessage: 'that note could not be updated at this time.',
-        url: '/tasks'
+    addNote(req.body.noteBody, id)
+      .then((note) => {
+        return res.redirect('/tasks/' + id);
+      })
+      .catch((e) => {
+        return res.status(404).render('lost', {
+          errMessage: 'that note could not be updated at this time.',
+          url: '/tasks'
+        });
       });
-    });
-  }
+    }
   //IF TITLE IS EDITED
   if (req.body.editTitleTsk){
     Task.findByIdAndUpdate(id, {$set: {title: req.body.editTitleTsk}}).then((task) => {
-      res.redirect('/tasks/' + id);
+      return res.redirect('/tasks/' + id);
     }).catch((e) => {
-      res.status(404).render('lost', {
+      return res.status(404).render('lost', {
         errMessage: 'that task could not be updated at this time.',
         url: '/tasks'
       });
@@ -117,15 +116,17 @@ router.put("/:id", (req, res) => {
   }
   // IF START BUTTON WAS CLICKED
   if (req.body.startTsk){
-    Task.findByIdAndUpdate(id, {$set: {startTime: conv.taskCount(), inProgress:true}}).then((task) => {
-      res.redirect('/tasks/' + id);
-    }).catch((e) => {
-      res.status(404).render('lost', {
-        errMessage: 'that task could not be updated at this time.',
-        url: '/tasks'
+    Task.findByIdAndUpdate(id, {$set: {startTime: conv.taskCount(), inProgress:true}})
+      .then((task) => {
+        return res.redirect('/tasks/' + id);
+      })
+      .catch((e) => {
+        return res.status(404).render('lost', {
+          errMessage: 'that task could not be updated at this time.',
+          url: '/tasks'
+        });
       });
-    });
-  }
+    }
   // IF STOP WAS CLICKED
   else if (req.body.stopTsk){
     Task.findById(id).then((task) => {
@@ -141,18 +142,25 @@ router.put("/:id", (req, res) => {
       // USE DATA TO UPDATE TOTAL TIME
       var newTime = data.time + data.difference;
       Task.findByIdAndUpdate(id, {$set: {time: newTime, inProgress:false}}).then((task) => {
-        res.redirect('/tasks/' + id);
+        return res.redirect('/tasks/' + id);
       }).catch((e) => {
-        res.status(404).render('lost', {
+        return res.status(404).render('lost', {
           errMessage: 'that task could not be updated at this time.',
           url: '/tasks'
         });
       });
     }).catch((e) => {
-      res.status(404).render('lost', {
+      return res.status(404).render('lost', {
         errMessage: 'that task could not be updated at this time.',
         url: '/tasks'
       });
+    });
+  }
+  else if(!req.body.noteBody && !req.body.startTsk && !req.body.editTitleTsk &&
+  !req.body.startTsk && !req.body.stopTsk){
+    return res.status(404).render('lost', {
+      errMessage: 'that task does not exist!',
+      url: '/tasks'
     });
   }
 });
