@@ -1,10 +1,12 @@
 var express = require('express')
 , router = express.Router();
 
+const {env, port, mongoose} = require('./../server/config');
 const {ObjectID} = require('mongodb');
+
 const {Task} = require('./../server/models/task');
 const conv = require('./../lib/conv');
-const {env, port, mongoose} = require('./../server/config');
+
 const {addNote} = require('./../lib/taskFuncs');
 
 // LIST TASKS

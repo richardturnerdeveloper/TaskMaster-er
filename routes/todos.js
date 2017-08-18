@@ -3,12 +3,9 @@ const express = require('express')
 
 const {env, port, mongoose} = require('./../server/config');
 const {ObjectID} = require('mongodb');
-const bodyParser = require('body-parser');
 
 const {Todo} = require('./../server/models/todo');
-const conv = require('./../lib/conv');
 
-router.use(bodyParser.urlencoded({ extended: false }));
 
 //VIEW TODOS
 router.get("/", (req, res) => {
