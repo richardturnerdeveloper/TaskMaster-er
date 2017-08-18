@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const {Task} = require('./server/models/task');
 const {Todo} = require('./server/models/todo');
+const {User} = require('./server/models/user');
 
 const {env, port, mongoose} = require('./server/config');
 
@@ -37,6 +38,7 @@ app.set('view engine', 'hbs');
 //---------ROUTES --------- //
 app.use('/tasks', require('./routes/tasks'));
 app.use('/todos', require('./routes/todos'));
+app.use('/users', require('./routes/users'));
 
 app.get("/", (req, res) => {
   Task.find().then((tasks) => {

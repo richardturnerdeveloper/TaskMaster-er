@@ -14,7 +14,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    minlength: 5
+    minlength: 5,
     validate: {
       validator: (value) => {
         return validator.isEmail(value);
@@ -40,6 +40,12 @@ var UserSchema = new mongoose.Schema({
     }
   ]
 });
+
+UserSchema.methods.toJSON = function(){
+  user = this;
+  userObject = user.toObject();
+  return _.pick(userObject, ['username']);
+}
 
 var User = mongoose.model('User', UserSchema);
 

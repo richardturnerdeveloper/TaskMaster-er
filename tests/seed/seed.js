@@ -1,11 +1,14 @@
 const {Task} = require('./../../server/models/task');
 const {Todo} = require('./../../server/models/todo');
+const {User} = require('./../../server/models/user');
 const {ObjectID} = require('mongodb');
 
 firstObjectID = new ObjectID();
 secondObjectID = new ObjectID();
 thirdObjectID = new ObjectID();
 fourthObjectID = new ObjectID();
+fifthObjectID = new ObjectID();
+sixthObjectID = new ObjectID();
 
 const todos = [
   {
@@ -33,6 +36,26 @@ const tasks = [
   }
 ]
 
+const users = [
+  {
+    _id: fifthObjectID,
+    username: 'I_Like_Browsing',
+    email: 'I_Like_Browsing@internet.com',
+    password: 'xXxmarilynMansonfanxXx',
+    tokens: []
+  },
+  {
+    _id: sixthObjectID,
+    username: 'DogFoodEater',
+    email: 'PurinaIsChoice@dogs.org',
+    password: 'raiseawareness1',
+    tokens: []
+  }
+]
+
+
+
+
 const populateTodos = (done) => {
   Todo.remove({})
     .then(() => {
@@ -58,10 +81,23 @@ const populateTasks = (done) => {
 
     });
 }
+const populateUsers = (done) => {
+  User.remove({})
+    .then(() => {
+      return User.insertMany(users);
+    })
+    .then(() => {
+      return done();
+    })
+    .catch((e) => {
 
+    });
+}
 module.exports = {
   populateTasks,
   populateTodos,
+  populateUsers,
+  users,
   todos,
   tasks
   };
